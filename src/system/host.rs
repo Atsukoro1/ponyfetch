@@ -58,22 +58,3 @@ pub fn get_distro() -> String {
 
     distro.to_string()
 }
-
-#[cfg(target_os = "linux")]
-pub fn get_ipaddr() -> String {
-    // Get current using network interface
-    let mut f = File::open("/proc/net/route").unwrap();
-    let mut intr = String::new();
-    f.read_to_string(&mut intr).unwrap();
-
-    let lines: &Vec<&str> = &intr.lines().collect();
-    let mut interface = String::new();
-
-    lines.into_iter().for_each(|line| {
-        if line.contains("00000000") {
-            interface = line.split("\t").collect::<Vec<&str>>()[0].to_string();
-        }
-    });
-
-    interface
-}

@@ -1,5 +1,5 @@
 mod system;
 
 fn main() {
-    println!("{}", system::get_ipaddr())
+    println!("{}", system::specs::get_ram_used())
 }
