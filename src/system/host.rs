@@ -60,7 +60,7 @@ pub fn get_distro() -> String {
 
 #[cfg(target_os = "linux")]
 pub fn get_uptime() -> String {
-    let mut temp_buf: String = file_open("/proc/uptime");
+    let temp_buf: String = file_open("/proc/uptime");
 
     let uptime: u128 = temp_buf.split(".")
         .collect::<Vec<&str>>()[0]

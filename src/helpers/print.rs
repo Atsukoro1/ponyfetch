@@ -1,17 +1,25 @@
-use crate::{helpers, system};
+use super::{file::file_open, colors::print_cyan_bold};
+use crate::helpers::{self, colors::print_bold};
 
-use super::file::file_open;
+pub fn print_detail(title: &str, value: String, introduction: bool) {
+    print!("    ");
+    
+    if introduction {
+        print_bold(&format!(
+            "{}@{}",
+            title, 
+            value
+        ), true);
+    } else {
+        helpers::colors::print_cyan_bold(&title, true);
+        for _ in 0..(10 - title.len()) {
+            print!(" ");
+        }
 
-pub fn print_detail(title: &str, value: String) {
-    helpers::colors::print_cyan_bold(&title, true);
-    for _ in 0..(8 - title.len()) {
-        print!(" ");
+        helpers::colors::print_bold(" : ", true);
+
+        print!("{}", &value);
     }
-
-    helpers::colors::print_bold(" : ", true);
-
-    print!("{}", &value);
-    println!();
 }
 
 pub fn print_ponyline(line: u16, pony: &str) {
@@ -20,6 +28,6 @@ pub fn print_ponyline(line: u16, pony: &str) {
         .skip(line as usize)
         .take(1)
         .for_each(|line| {
-            print!("{}", line);
+            print_cyan_bold(line, true);
         });
 }
