@@ -58,3 +58,20 @@ pub fn get_distro() -> String {
 
     distro.to_string()
 }
+
+#[cfg(target_os = "linux")]
+pub fn get_uptime() -> String {
+    let mut temp_buf: String = String::new();
+
+    let mut file = File::open("/proc/uptime").unwrap();
+    file.read_to_string(&mut temp_buf).unwrap();
+
+    let uptime: u128 = temp_buf.split(".").collect::<Vec<&str>>()[0].parse().unwrap();
+
+    let days = uptime / 86400;
+    let hours = (uptime % 86400) / 3600;
+    let minutes = (uptime % 3600) / 60;
+    let seconds = uptime % 60;
+
+    format!("{}d {}h {}m {}s", days, hours, minutes, seconds)
+}

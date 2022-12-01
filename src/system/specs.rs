@@ -1,6 +1,5 @@
 use std::fs::File;
 use std::io::Read;
-use std::ops::Add;
 use std::rc::Rc;
 
 #[cfg(target_os = "linux")]
