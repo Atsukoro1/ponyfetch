@@ -21,7 +21,9 @@ pub fn get_user() -> String {
         .stdout
         .iter()
         .map(|&c| c as char)
-        .collect()
+        .collect::<String>()
+        .trim()
+        .to_string()
 }
 
 #[cfg(target_os = "linux")] 
@@ -74,4 +76,25 @@ pub fn get_uptime() -> String {
     let seconds = uptime % 60;
 
     format!("{}d {}h {}m {}s", days, hours, minutes, seconds)
+}
+
+#[cfg(target_os = "linux")]
+pub fn get_shell() -> String {
+    let mut final_str = String::new();
+    let mut temp_buf: String = String::new();
+
+    let mut f = File::open("/etc/passwd").unwrap();
+    f.read_to_string(&mut temp_buf).unwrap();
+
+    let lines: &Vec<&str> = &temp_buf.lines().collect();
+
+    lines.into_iter().for_each(|line| {
+        if line.contains(&get_user()) {
+            final_str = line.split(":")
+                .collect::<Vec<&str>>()[6]
+                .to_string();
+        }
+    });
+
+    final_str
 }
