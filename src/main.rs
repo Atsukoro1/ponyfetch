@@ -1,12 +1,18 @@
 mod helpers;
 mod system;
 
-struct Action<'a> {
+pub enum ActionType {
+    HostInfo,
+    Delimiter,
+    Details
+}
+
+pub struct Action<'a> {
     name: &'a str,
     func: fn() -> String,
 }
 
-static ACTIONS: [Action; 8] = [
+const ACTIONS: [Action; 8] = [
     Action {
         name: "Distro",
         func: system::host::get_distro,
