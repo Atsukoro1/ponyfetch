@@ -1,3 +1,4 @@
+use crate::helpers::file::file_open;
 use std::fs::File;
 use std::io::Read;
 use std::rc::Rc;
@@ -27,10 +28,7 @@ pub fn get_cpu() -> String {
 
 #[cfg(target_os = "linux")]
 pub fn get_ram_used() -> String {
-    let mut temp_buf: String = String::new();
-
-    let mut file = File::open("/proc/meminfo").unwrap();
-    file.read_to_string(&mut temp_buf).unwrap();
+    let temp_buf: String = file_open("/proc/meminfo");
 
     let lines: &Vec<&str> = &temp_buf.lines().collect();
 
@@ -63,4 +61,13 @@ fn eval_ram(line: String) -> u128 {
         .unwrap();
 
     (kbs / 1000)
+}
+
+#[cfg(target_os = "linux")]
+pub fn get_kernel() -> String {
+    let temp_buf: String = file_open("/proc/version");
+
+    temp_buf.split(" ")
+        .collect::<Vec<&str>>()[2]
+        .to_string()
 }

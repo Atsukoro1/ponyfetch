@@ -1,4 +1,3 @@
-use std::{fs::File, io::Read};
 use std::process::Command;
 use std::sync::Mutex;
 
@@ -6,12 +5,10 @@ use std::sync::Mutex;
 pub fn get_ipaddr() -> String {
     use std::ops::Add;
 
-    let mut final_str: Mutex<String> = Mutex::new(String::new());
+    use crate::helpers::file::file_open;
 
-    let mut f = File::open("/proc/net/route").unwrap();
-    let mut intr = String::new();
-
-    f.read_to_string(&mut intr).unwrap();
+    let final_str: Mutex<String> = Mutex::new(String::new());
+    let intr = file_open("/proc/net/route");
 
     let lines: &Vec<&str> = &intr.lines().collect();
     let mut interface = String::new();

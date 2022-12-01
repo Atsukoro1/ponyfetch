@@ -1,13 +1,10 @@
+use crate::helpers::file::file_open;
 use std::{fs::File, io::Read};
 use std::process::Command;
 
 #[cfg(target_os = "linux")]
 pub fn get_hostname() -> String {
-    let mut hostname = String::new();
-
-    let mut f = File::open("/etc/hostname").unwrap();
-    f.read_to_string(&mut hostname).unwrap();
-
+    let mut hostname = file_open("/etc/hostname");
     hostname.pop();
 
     hostname
@@ -63,12 +60,12 @@ pub fn get_distro() -> String {
 
 #[cfg(target_os = "linux")]
 pub fn get_uptime() -> String {
-    let mut temp_buf: String = String::new();
+    let mut temp_buf: String = file_open("/proc/uptime");
 
-    let mut file = File::open("/proc/uptime").unwrap();
-    file.read_to_string(&mut temp_buf).unwrap();
-
-    let uptime: u128 = temp_buf.split(".").collect::<Vec<&str>>()[0].parse().unwrap();
+    let uptime: u128 = temp_buf.split(".")
+        .collect::<Vec<&str>>()[0]
+        .parse()
+        .unwrap();
 
     let days = uptime / 86400;
     let hours = (uptime % 86400) / 3600;
@@ -80,11 +77,8 @@ pub fn get_uptime() -> String {
 
 #[cfg(target_os = "linux")]
 pub fn get_shell() -> String {
+    let temp_buf: String = file_open("/etc/passwd");
     let mut final_str = String::new();
-    let mut temp_buf: String = String::new();
-
-    let mut f = File::open("/etc/passwd").unwrap();
-    f.read_to_string(&mut temp_buf).unwrap();
 
     let lines: &Vec<&str> = &temp_buf.lines().collect();
 
@@ -92,6 +86,29 @@ pub fn get_shell() -> String {
         if line.contains(&get_user()) {
             final_str = line.split(":")
                 .collect::<Vec<&str>>()[6]
+                .to_string();
+        }
+    });
+
+    final_str
+}
+
+#[cfg(target_os = "linux")]
+pub fn get_resolution() -> String {
+    let mut final_str = String::new();
+
+    let output = Command::new("xrandr")
+        .output()
+        .expect("Failed to execute xrandr");
+
+    let output = String::from_utf8(output.stdout).unwrap();
+
+    let lines: &Vec<&str> = &output.lines().collect();
+
+    lines.into_iter().for_each(|line| {
+        if line.contains(" connected") {
+            final_str = line.split(" ")
+                .collect::<Vec<&str>>()[2]
                 .to_string();
         }
     });

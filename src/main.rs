@@ -1,5 +1,6 @@
+mod helpers;
 mod system;
 
 fn main() {
-    println!("{}", system::host::get_shell());
+    println!("{}", system::specs::get_kernel());
 }
