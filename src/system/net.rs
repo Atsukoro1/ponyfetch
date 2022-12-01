@@ -1,12 +1,10 @@
+use crate::helpers::file::file_open;
 use std::process::Command;
 use std::sync::Mutex;
+use std::ops::Add;
 
 #[cfg(target_os = "linux")]
 pub fn get_ipaddr() -> String {
-    use std::ops::Add;
-
-    use crate::helpers::file::file_open;
-
     let final_str: Mutex<String> = Mutex::new(String::new());
     let intr = file_open("/proc/net/route");
 

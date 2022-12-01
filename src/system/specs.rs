@@ -20,6 +20,7 @@ pub fn get_cpu() -> String {
                     .collect::<Vec<&str>>()[1].to_string()
                     .replace("\t", "")
             );
+            cpu = Rc::new(cpu.replacen(" ", "", 1));
         }
     });
 
