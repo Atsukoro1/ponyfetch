@@ -6,24 +6,27 @@ pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) 
     
     match atype {
         ActionType::Details => {
-            helpers::colors::print(&title, true, color);
+            print(&title, true, &(color.to_owned() + "_bold"));
             for _ in 0..(10 - title.len()) {
                 print!(" ");
             }
 
-            helpers::colors::print(" : ", true, "white");
+            helpers::colors::print(" : ", true, "white_bold");
 
             print!("{}", &value);
         },
         ActionType::Delimiter => {
-            print("-----------------------------", true, "white");
+            print("-----------------------------", true, "white_bold");
         },
         ActionType::HostInfo => {
             print(&format!(
                 "{}@{}",
-                title, 
-                value
-            ), true, color);
+                title.to_owned(), 
+                value.to_owned()
+            ), 
+                true, 
+                &(color.to_owned() + "_bold")
+            );
         }
     };
 }
