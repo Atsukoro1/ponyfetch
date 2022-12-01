@@ -1,6 +1,7 @@
 mod helpers;
 mod system;
 
+#[derive(Clone, Copy)]
 pub enum ActionType {
     HostInfo,
     Delimiter,
@@ -8,42 +9,61 @@ pub enum ActionType {
 }
 
 pub struct Action<'a> {
-    name: &'a str,
-    func: fn() -> String,
+    action_type: ActionType,
+    name: Option<&'a str>,
+    func: Option<fn() -> String>,
 }
 
-const ACTIONS: [Action; 8] = [
+const ACTIONS: [Action; 10] = [
     Action {
-        name: "Distro",
-        func: system::host::get_distro,
+        action_type: ActionType::HostInfo,
+        name: None,
+        func: Some(system::host::get_hostname),
     },
     Action {
-        name: "Kernel",
-        func: system::specs::get_kernel,
+        action_type: ActionType::Delimiter,
+        name: None,
+        func: None,
     },
     Action {
-        name: "Uptime",
-        func: system::host::get_uptime,
+        action_type: ActionType::Details,
+        name: Some("Distro"),
+        func: Some(system::host::get_distro),
     },
     Action {
-        name: "Shell",
-        func: system::host::get_shell,
+        action_type: ActionType::Details,
+        name: Some("Kernel"),
+        func: Some(system::specs::get_kernel),
     },
     Action {
-        name: "Resolution",
-        func: system::host::get_resolution,
+        action_type: ActionType::Details,
+        name: Some("Uptime"),
+        func: Some(system::host::get_uptime),
     },
     Action {
-        name: "IP",
-        func: system::net::get_ipaddr,
+        action_type: ActionType::Details,
+        name: Some("Shell"),
+        func: Some(system::host::get_shell),
     },
     Action {
-        name: "CPU",
-        func: system::specs::get_cpu,
+        action_type: ActionType::Details,
+        name: Some("Resolution"),
+        func: Some(system::host::get_resolution),
     },
     Action {
-        name: "RAM",
-        func: system::specs::get_ram_used,
+        action_type: ActionType::Details,
+        name: Some("IP"),
+        func: Some(system::net::get_ipaddr),
+    },
+    Action {
+        action_type: ActionType::Details,
+        name: Some("CPU"),
+        func: Some(system::specs::get_cpu),
+    },
+    Action {
+        action_type: ActionType::Details,
+        name: Some("RAM"),
+        func: Some(system::specs::get_ram_used),
     }
 ];
 
@@ -51,18 +71,35 @@ fn main() {
     for i in 0..12 {
         helpers::print::print_ponyline(i, "rainbowdash");
 
-        if i == 0 {
-            helpers::print::print_detail(
-                &system::host::get_user(), 
-                system::host::get_hostname(),
-                true
-            );
-        } else if ACTIONS.len() > (i as usize) && i != 0 {
-            helpers::print::print_detail(
-                ACTIONS[i as usize - 1].name, 
-                (ACTIONS[i as usize - 1].func)(),
-                false
-            );
+        if ACTIONS.get(i as usize).is_none() {
+            println!();
+            continue;
+        }
+
+        match ACTIONS[i as usize].action_type {
+            ActionType::HostInfo => {
+                helpers::print::print_detail(
+                    &system::host::get_user(),
+                    system::host::get_hostname(),
+                    ActionType::HostInfo
+                );
+            },
+                    
+            ActionType::Delimiter => {
+                helpers::print::print_detail(
+                    "",
+                    "".to_string(),
+                    ActionType::Delimiter
+                );
+            },
+                    
+            ActionType::Details => {
+                helpers::print::print_detail(
+                    ACTIONS[i as usize].name.unwrap(),
+                    ACTIONS[i as usize].func.unwrap()(),
+                    ACTIONS[i as usize].action_type
+                );
+            }
         }
 
         println!();

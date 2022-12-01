@@ -1,25 +1,31 @@
 use super::{file::file_open, colors::print_cyan_bold};
-use crate::helpers::{self, colors::print_bold};
+use crate::{helpers::{self, colors::print_bold}, ActionType};
 
-pub fn print_detail(title: &str, value: String, introduction: bool) {
+pub fn print_detail(title: &str, value: String, atype: ActionType) {
     print!("    ");
     
-    if introduction {
-        print_bold(&format!(
-            "{}@{}",
-            title, 
-            value
-        ), true);
-    } else {
-        helpers::colors::print_cyan_bold(&title, true);
-        for _ in 0..(10 - title.len()) {
-            print!(" ");
+    match atype {
+        ActionType::Details => {
+            helpers::colors::print_cyan_bold(&title, true);
+            for _ in 0..(10 - title.len()) {
+                print!(" ");
+            }
+
+            helpers::colors::print_bold(" : ", true);
+
+            print!("{}", &value);
+        },
+        ActionType::Delimiter => {
+            print_bold("-----------------------------", true);
+        },
+        ActionType::HostInfo => {
+            print_bold(&format!(
+                "{}@{}",
+                title, 
+                value
+            ), true);
         }
-
-        helpers::colors::print_bold(" : ", true);
-
-        print!("{}", &value);
-    }
+    };
 }
 
 pub fn print_ponyline(line: u16, pony: &str) {
