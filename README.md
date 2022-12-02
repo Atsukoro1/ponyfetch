@@ -9,5 +9,5 @@
     <img src="https://img.shields.io/badge/Made%20with-Rust-blue?style=for-the-badge"/>
 </p>
 <p align="center">
-    A crossplatform CLI tool written in rust to display your</br> system's information with style and ponies. :3 
+   A cross-platform command-line interface (CLI) tool written in Rust</br> to display system information in an aesthetically pleasing and entertaining manner.
 </p>
