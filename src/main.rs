@@ -31,15 +31,22 @@ const ACTIONS: [Action; 13] = [
         name: None,
         func: None,
     },
+    #[cfg(target_os = "linux")]
     Action {
         action_type: ActionType::Details,
         name: Some("Distro"),
         func: Some(system::host::get_distro),
     },
+    #[cfg(target_os = "windows")]
+    Action {
+        action_type: ActionType::Details,
+        name: Some("Product"),
+        func: Some(system::specs::get_kernel),
+    },
     Action {
         action_type: ActionType::Details,
         name: Some("Kernel"),
-        func: Some(system::specs::get_kernel),
+        func: Some(system::host::get_distro),
     },
     Action {
         action_type: ActionType::Details,
@@ -71,10 +78,17 @@ const ACTIONS: [Action; 13] = [
         name: Some("RAM"),
         func: Some(system::specs::get_ram_used),
     },
+    #[cfg(target_os = "linux")]
     Action {
         action_type: ActionType::Details,
         name: Some("Init System"),
         func: Some(system::host::get_init_system),
+    },
+    #[cfg(target_os = "windows")]
+    Action {
+        action_type: ActionType::Details,
+        name: Some("GPU"),
+        func: Some(system::specs::get_gpu),
     },
     Action {
         action_type: ActionType::Delimiter,
@@ -90,8 +104,6 @@ const ACTIONS: [Action; 13] = [
 
 fn main() {
     let args: Args = Args::parse();
-
-    println!("{}", system::host::get_init_system());
 
     let line_count = helpers::file::get_file_linecount(
         &format!("{}{}.txt", helpers::paths::get_pony_path(), &args.pony)

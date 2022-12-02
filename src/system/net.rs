@@ -3,6 +3,26 @@ use std::process::Command;
 use std::sync::Mutex;
 use std::ops::Add;
 
+#[cfg(target_os = "windows")]
+pub fn get_ipaddr() -> String {
+    let mut ipaddr = String::new();
+
+    let output = Command::new("ipconfig")
+        .args(&["/all"])
+        .output()
+        .expect("Failed to execute process");
+
+    let output = String::from_utf8_lossy(&output.stdout);
+
+    for line in output.lines() {
+        if line.contains("IPv4 Address") {
+            ipaddr = line.split_whitespace().last().unwrap().to_string();
+        }
+    }
+
+    ipaddr
+}
+
 #[cfg(target_os = "linux")]
 pub fn get_ipaddr() -> String {
     let final_str: Mutex<String> = Mutex::new(String::new());
