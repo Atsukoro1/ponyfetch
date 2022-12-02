@@ -7,7 +7,7 @@ pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) 
     match atype {
         ActionType::Details => {
             print(&title, true, &(color.to_owned() + "_bold"));
-            for _ in 0..(10 - title.len()) {
+            for _ in 0..(12 - title.len()) {
                 print!(" ");
             }
 

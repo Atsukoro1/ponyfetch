@@ -115,3 +115,16 @@ pub fn get_resolution() -> String {
 
     final_str
 }
+
+#[cfg(target_os = "linux")]
+pub fn get_init_system() -> String {
+    Command::new("ps")
+        .args(&["-p", "1", "-o", "comm="])
+        .output()
+        .unwrap()
+        .stdout
+        .iter()
+        .map(|&c| c as char)
+        .collect::<String>()
+        .trim().to_string()
+}

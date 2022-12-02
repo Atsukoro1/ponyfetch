@@ -20,7 +20,7 @@ pub struct Action<'a> {
     func: Option<fn() -> String>,
 }
 
-const ACTIONS: [Action; 12] = [
+const ACTIONS: [Action; 13] = [
     Action {
         action_type: ActionType::HostInfo,
         name: None,
@@ -72,6 +72,11 @@ const ACTIONS: [Action; 12] = [
         func: Some(system::specs::get_ram_used),
     },
     Action {
+        action_type: ActionType::Details,
+        name: Some("Init System"),
+        func: Some(system::host::get_init_system),
+    },
+    Action {
         action_type: ActionType::Delimiter,
         name: None,
         func: None,
@@ -85,6 +90,8 @@ const ACTIONS: [Action; 12] = [
 
 fn main() {
     let args: Args = Args::parse();
+
+    println!("{}", system::host::get_init_system());
 
     let line_count = helpers::file::get_file_linecount(
         &format!("{}{}.txt", helpers::paths::get_pony_path(), &args.pony)
