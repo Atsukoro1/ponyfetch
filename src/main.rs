@@ -5,7 +5,7 @@ mod helpers;
 mod system;
 mod args;
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug)]
 pub enum ActionType {
     HostInfo,
     Delimiter,
@@ -13,6 +13,7 @@ pub enum ActionType {
     Colors
 }
 
+#[derive(Debug)]
 pub struct Action<'a> {
     action_type: ActionType,
     name: Option<&'a str>,
@@ -85,15 +86,23 @@ const ACTIONS: [Action; 12] = [
 fn main() {
     let args: Args = Args::parse();
 
-    for i in 0..50 {
+    let line_count = helpers::file::get_file_linecount(
+        &format!("ponies/{}.txt", &args.pony)
+    );
+
+    let to_skip = ((line_count / 2) as f32).floor() - 6.0;
+
+    for i in 0..line_count {
         helpers::print::print_ponyline(i, &args.pony, &args.color);
 
-        if ACTIONS.get(i as usize).is_none() {
+        let pad_i = (i as f32 - to_skip).floor();
+
+        if ACTIONS.get(pad_i as usize).is_none() || pad_i < 0.0 {
             println!();
             continue;
         }
 
-        match ACTIONS[i as usize].action_type {
+        match ACTIONS[pad_i as usize].action_type {
             ActionType::HostInfo => {
                 helpers::print::print_detail(
                     &system::host::get_user(),
@@ -114,9 +123,9 @@ fn main() {
                     
             ActionType::Details => {
                 helpers::print::print_detail(
-                    ACTIONS[i as usize].name.unwrap(),
-                    ACTIONS[i as usize].func.unwrap()(),
-                    ACTIONS[i as usize].action_type,
+                    ACTIONS[pad_i as usize].name.unwrap(),
+                    ACTIONS[pad_i as usize].func.unwrap()(),
+                    ACTIONS[pad_i as usize].action_type,
                     args.color.as_str()
                 );
             },
