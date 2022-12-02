@@ -37,12 +37,19 @@ chmod +x ./install.sh && sudo ./install.sh
 
 - 🖥️ On Windows
 
-```sh
+```txt
 (WIP) Ponyfetch is still not available on Windows
 ```
 
 - 🍎 On Mac
 
-```sh
+```txt
 (WIP) Ponyfetch was never tested on Mac and it's stability can't be guaranteed.
 ```
+
+## 📚 Contributing
+
+#### 🐎 Adding new ponies
+If you wish to add new ponies to the project, please adhere to the following guidelines in order to maintain the project's structural integrity and functionality. The two main distinguishing features of these ponies are their size and style (e.g. Hat or Wings). Refer to the current pony ASCII art to determine the size of your new pony. If your pony is larger than the others, use the format `<ponyname>_large`. If the size is the same as an existing pony, find a visible difference between your pony and the current one, and name it `<ponyname>_<difference>_large`. If you still don't know, open an issue and discuss it with members of our team.
+
+- 🖥️ Modifying & Adding code
