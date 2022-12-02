@@ -33,21 +33,29 @@ pub fn get_ram_used() -> String {
     use std::process::Command;
 
     let mut ram_used = String::new();
+    let mut ram_total = String::new();
 
     let output = Command::new("wmic")
-        .args(&["OS", "get", "FreePhysicalMemory"])
+        .args(&["OS", "get", "FreePhysicalMemory,TotalVisibleMemorySize"])
         .output()
         .expect("Failed to execute process");
 
     let output = String::from_utf8_lossy(&output.stdout);
 
     for line in output.lines() {
-        if !line.contains("FreePhysicalMemory") && line.trim().len() > 0 {
-            ram_used = line.to_string();
-        }
+        if line.contains("Memory") || line.trim().len() == 0 {continue};
+
+        let mut split = line.split_whitespace();
+
+        ram_used = split.next().unwrap().to_string();
+        ram_total = split.next().unwrap().to_string();
     }
 
-    ram_used
+    format!(
+        "{}MB / {}MB",
+        (ram_total.parse::<u64>().unwrap() - ram_used.parse::<u64>().unwrap()) / 1024,
+        ram_total.parse::<u64>().unwrap() / 1024
+    )
 }
 
 #[cfg(target_os = "windows")]
@@ -120,6 +128,7 @@ pub fn get_ram_used() -> String {
     )
 }
 
+#[cfg(target_os = "linux")]
 fn eval_ram(line: String) -> u128 {
     let kbs: u128 = line.split(":")
         .collect::<Vec<&str>>()[1].to_string()
