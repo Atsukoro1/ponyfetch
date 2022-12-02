@@ -9,7 +9,8 @@ mod args;
 pub enum ActionType {
     HostInfo,
     Delimiter,
-    Details
+    Details,
+    Colors
 }
 
 pub struct Action<'a> {
@@ -18,7 +19,7 @@ pub struct Action<'a> {
     func: Option<fn() -> String>,
 }
 
-const ACTIONS: [Action; 10] = [
+const ACTIONS: [Action; 12] = [
     Action {
         action_type: ActionType::HostInfo,
         name: None,
@@ -68,13 +69,23 @@ const ACTIONS: [Action; 10] = [
         action_type: ActionType::Details,
         name: Some("RAM"),
         func: Some(system::specs::get_ram_used),
+    },
+    Action {
+        action_type: ActionType::Delimiter,
+        name: None,
+        func: None,
+    },
+    Action {
+        action_type: ActionType::Colors,
+        name: None,
+        func: None,
     }
 ];
 
 fn main() {
     let args: Args = Args::parse();
 
-    for i in 0..12 {
+    for i in 0..50 {
         helpers::print::print_ponyline(i, &args.pony, &args.color);
 
         if ACTIONS.get(i as usize).is_none() {
@@ -106,6 +117,15 @@ fn main() {
                     ACTIONS[i as usize].name.unwrap(),
                     ACTIONS[i as usize].func.unwrap()(),
                     ACTIONS[i as usize].action_type,
+                    args.color.as_str()
+                );
+            },
+
+            ActionType::Colors => {
+                helpers::print::print_detail(
+                    "",
+                    "".to_string(),
+                    ActionType::Colors,
                     args.color.as_str()
                 );
             }

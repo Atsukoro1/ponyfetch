@@ -16,17 +16,30 @@ pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) 
             print!("{}", &value);
         },
         ActionType::Delimiter => {
-            print("-----------------------------", true, "white_bold");
+            print("-----------------------------", true, "white");
         },
         ActionType::HostInfo => {
-            print(&format!(
-                "{}@{}",
-                title.to_owned(), 
-                value.to_owned()
-            ), 
+            print(
+                title, 
                 true, 
                 &(color.to_owned() + "_bold")
             );
+            print("@", true, "white_bold");
+            print(
+                &value, 
+                true, 
+                &(color.to_owned() + "_bold")
+            );
+        },
+
+        ActionType::Colors => {
+            // Print the color blocks like neofetch
+            print("████", true, "black");
+            print("████", true, "red");
+            print("████", true, "green");
+            print("████", true, "yellow");
+            print("████", true, "blue");
+            print("████", true, "magenta");
         }
     };
 }

@@ -61,7 +61,7 @@ fn eval_ram(line: String) -> u128 {
         .parse::<u128>()
         .unwrap();
 
-    (kbs / 1000)
+    kbs / 1000
 }
 
 #[cfg(target_os = "linux")]
