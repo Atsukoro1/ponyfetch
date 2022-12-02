@@ -12,6 +12,18 @@
    A cross-platform command-line interface (CLI) tool written in Rust</br> to display system information in an aesthetically pleasing and entertaining manner.
 </p>
 
+## 📜 Table of contents
+
+- [📜 Table of contents](#-table-of-contents)
+- [✨ Demo](#-demo)
+- [⚡ Installing](#-installing)
+- [🔨 Compiling](#-compiling)
+- [📚 Contributing](#-contributing)
+    - [🐎 Adding new ponies](#-adding-new-ponies)
+    - [🖥️ Modifying \& Adding code](#️-modifying--adding-code)
+- [⛓️ Sources](#️-sources)
+
+
 ## ✨ Demo
 
 `Ponyfetch` provides an aesthetically pleasing, colorful display of important system information, complete with charming ponies.
