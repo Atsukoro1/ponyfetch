@@ -9,7 +9,7 @@ pub struct Args {
     /// Defines what ASCII pony to print.
     pub pony: String,
 
-    #[clap(short, long, required = false, default_value = "0")]
+    #[clap(short, long, required = false, default_value = "green")]
     /// Defines what color to print the output it
     pub color: String
 }
