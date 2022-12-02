@@ -45,7 +45,7 @@ pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) 
 }
 
 pub fn print_ponyline(line: u16, pony: &str, color: &str) {
-    file_open(&format!("ponies/{}.txt", pony).to_string())
+    file_open(&format!("{}{}.txt", helpers::paths::get_pony_path(), pony).to_string())
         .lines()
         .skip(line as usize)
         .take(1)

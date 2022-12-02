@@ -36,10 +36,7 @@ const COLORS : [(&str, &str); 34] = [
 ];
 
 pub fn print(text: &str, inline: bool, color: &str) {
-    let mut color = color;
-    if color == "rainbowdash" {
-        color = "bright_magenta";
-    }
+    let color = color;
 
     let color = color;
     let color = COLORS.iter().find(|(name, _)| name == &color).unwrap().1;

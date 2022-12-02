@@ -87,7 +87,7 @@ fn main() {
     let args: Args = Args::parse();
 
     let line_count = helpers::file::get_file_linecount(
-        &format!("ponies/{}.txt", &args.pony)
+        &format!("{}{}.txt", helpers::paths::get_pony_path(), &args.pony)
     );
 
     let to_skip = ((line_count / 2) as f32).floor() - 6.0;
