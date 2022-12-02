@@ -1,7 +1,10 @@
-use crate::helpers::file::file_open;
+#[cfg(target_os = "linux")]
+use {
+    crate::helpers::file::file_open,
+    std::sync::Mutex,
+    std::ops::Add,
+};
 use std::process::Command;
-use std::sync::Mutex;
-use std::ops::Add;
 
 #[cfg(target_os = "windows")]
 pub fn get_ipaddr() -> String {

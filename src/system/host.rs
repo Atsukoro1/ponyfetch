@@ -1,10 +1,10 @@
-#[cfg(target_os = "linux")]
-use crate::helpers::file::file_open;
-#[cfg(target_os = "linux")]
-use std::{fs::File, io::Read};
-
 #[cfg(any(target_os = "windows", target_os = "linux"))]
 use std::process::Command;
+#[cfg(target_os = "linux")]
+use {
+    crate::helpers::file::file_open,
+    std::{fs::File, io::Read},
+};
 
 #[cfg(target_os = "windows")]
 pub fn get_hostname() -> String {

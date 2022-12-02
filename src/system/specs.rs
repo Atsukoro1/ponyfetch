@@ -1,7 +1,10 @@
-use crate::helpers::file::file_open;
-use std::fs::File;
-use std::io::Read;
-use std::rc::Rc;
+#[cfg(target_os = "linux")]
+use {
+    crate::helpers::file::file_open,
+    std::fs::File,
+    std::io::Read,
+    std::rc::Rc,
+};
 
 #[cfg(target_os = "windows")]
 pub fn get_cpu() -> String {
