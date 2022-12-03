@@ -9,7 +9,8 @@
     <img src="https://img.shields.io/badge/Made%20with-Rust-blue?style=for-the-badge"/>
 </p>
 <p align="center">
-   A cross-platform command-line interface (CLI) tool written in Rust</br> to display system information in an aesthetically pleasing and entertaining manner.
+    <b>⚠️ (WIP) This project is not ready for any serious use right now.</b></br></br>
+    A cross-platform command-line interface (CLI) tool written in Rust</br> to display system information in an aesthetically pleasing and entertaining manner.
 </p>
 
 ## 📜 Table of contents
