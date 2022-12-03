@@ -119,6 +119,27 @@ pub fn get_disk_usage() -> String {
     disk
 }
 
+#[cfg(target_os = "linux")]
+pub fn get_arch() -> String {
+    use std::process::Command;
+
+    let mut arch = String::new();
+
+    let command = Command::new("lscpu")
+        .output()
+        .expect("Failed to execute process");
+
+    let command = String::from_utf8_lossy(&command.stdout);
+
+    for line in command.lines() {
+        if line.contains("Architecture") {
+            arch = line.split_whitespace().last().unwrap().to_string();
+        }
+    }
+
+    arch
+}
+
 #[cfg(target_os = "windows")]
 pub fn get_arch() -> String {
     use std::process::Command;
@@ -200,15 +221,6 @@ fn eval_ram(line: String) -> u128 {
         .unwrap();
 
     kbs / 1000
-}
-
-#[cfg(target_os = "linux")]
-pub fn get_kernel() -> String {
-    let temp_buf: String = file_open("/proc/version");
-
-    temp_buf.split(" ")
-        .collect::<Vec<&str>>()[2]
-        .to_string()
 }
 
 #[cfg(target_os = "windows")]
