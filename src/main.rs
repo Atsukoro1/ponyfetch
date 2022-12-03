@@ -43,6 +43,7 @@ const ACTIONS: [Action; 13] = [
         name: Some("Product"),
         func: Some(system::specs::get_kernel),
     },
+    #[cfg(target_os = "linux")]
     Action {
         action_type: ActionType::Details,
         name: Some("Kernel"),
@@ -50,8 +51,8 @@ const ACTIONS: [Action; 13] = [
     },
     Action {
         action_type: ActionType::Details,
-        name: Some("Uptime"),
-        func: Some(system::host::get_uptime),
+        name: Some("Arch"),
+        func: Some(system::specs::get_arch),
     },
     Action {
         action_type: ActionType::Details,
@@ -72,6 +73,12 @@ const ACTIONS: [Action; 13] = [
         action_type: ActionType::Details,
         name: Some("CPU"),
         func: Some(system::specs::get_cpu),
+    },
+    #[cfg(target_os = "windows")]
+    Action {
+        action_type: ActionType::Details,
+        name: Some("Disk usage"),
+        func: Some(system::specs::get_disk_usage),
     },
     Action {
         action_type: ActionType::Details,
@@ -104,6 +111,8 @@ const ACTIONS: [Action; 13] = [
 
 fn main() {
     let args: Args = Args::parse();
+
+    println!("{}", system::specs::get_disk_usage());
 
     let line_count = helpers::file::get_file_linecount(
         &format!("{}{}.txt", helpers::paths::get_pony_path(), &args.pony)

@@ -80,6 +80,67 @@ pub fn get_kernel() -> String {
     kernel
 }
 
+#[cfg(target_os = "windows")]
+pub fn get_disk_usage() -> String {
+    use std::process::Command;
+
+    let mut disk = String::new();
+
+    let output = Command::new("wmic")
+        .args(&["logicaldisk", "get", "size,freespace,caption"])
+        .output()
+        .expect("Failed to execute process");
+
+    let output = String::from_utf8_lossy(&output.stdout);
+
+    for line in output.lines() {
+        if line.contains("Caption") || line.trim().len() == 0 {continue};
+
+        let mut split = line.split_whitespace();
+
+        let name = split.next().unwrap().trim().to_string();
+        let free = split.next().unwrap().trim().to_string();
+        let size = split.next().unwrap().trim().to_string();
+
+        disk.push_str(&format!(
+            "{} {}GB / {}GB",
+            name,
+            (
+                size.parse::<u64>().unwrap() - 
+                free.parse::<u64>().unwrap()
+            ) 
+            / 1024 / 1024 / 1024,
+
+            size.parse::<u64>().unwrap() 
+            / 1024 / 1024 / 1024
+        ));
+    }
+
+    disk
+}
+
+#[cfg(target_os = "windows")]
+pub fn get_arch() -> String {
+    use std::process::Command;
+
+    let mut uptime = String::new();
+
+    let output = Command::new("wmic")
+        .args(&["path", "Win32_OperatingSystem", "get", "OSArchitecture"])
+        .output()
+        .expect("Failed to execute process");
+
+    let output = String::from_utf8_lossy(&output.stdout);
+
+    for line in output.lines() {
+        if !line.contains("OSArchitecture") && line.trim().len() > 0 {
+            uptime = line.trim().to_string()
+        }
+    };
+
+    uptime
+}
+
 #[cfg(target_os = "linux")]
 pub fn get_cpu() -> String {
     let mut cpu: Rc<String> = Rc::new(String::new());

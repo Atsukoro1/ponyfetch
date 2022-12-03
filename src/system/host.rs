@@ -48,46 +48,6 @@ pub fn get_user() -> String {
 }
 
 #[cfg(target_os = "windows")]
-pub fn get_distro() -> String {
-    let mut distro = String::new();
-
-    let output = Command::new("reg")
-        .args(&["query", "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "/v", "ProductName"])
-        .output()
-        .expect("Failed to execute process");
-
-    let output = String::from_utf8_lossy(&output.stdout);
-
-    for line in output.lines() {
-        if line.contains("ProductName") {
-            distro = line.split_whitespace().last().unwrap().to_string();
-        }
-    }
-
-    distro
-}
-
-#[cfg(target_os = "windows")]
-pub fn get_uptime() -> String {
-    let mut uptime = String::new();
-
-    let output = Command::new("reg")
-        .args(&["query", "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment", "/v", "NUMBER_OF_PROCESSORS"])
-        .output()
-        .expect("Failed to execute process");
-
-    let output = String::from_utf8_lossy(&output.stdout);
-
-    for line in output.lines() {
-        if line.contains("NUMBER_OF_PROCESSORS") {
-            uptime = line.split_whitespace().last().unwrap().to_string();
-        }
-    }
-
-    uptime
-}
-
-#[cfg(target_os = "windows")]
 pub fn get_shell() -> String {
     let mut shell = String::new();
 
