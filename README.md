@@ -59,9 +59,9 @@ sudo pacman -S net-tools
 
 ## ⚡ Installing
 
-If you don't want to compile this tool by yourself, it's possible to just download current already prebuilt build [right here](https://github.com/Atsukoro1/ponyfetch/releases).
+If you don't want to compile this tool by yourself, it's possible to just download current build [right here](https://github.com/Atsukoro1/ponyfetch/releases).
 
-After downloading the executable/binary files from releases, please install the install.sh file (for Linux/Mac) or install.bat file (for Windows) and proceed with the script part in the "Compiling" section.
+After downloading the executable/binary files from releases, please download the "install.sh" file (for Linux/Mac) or "install.bat" file (for Windows) and proceed with the script part in the "Compiling" section.
 
 ## 🔨 Compiling
 
