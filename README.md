@@ -17,6 +17,8 @@
 
 - [📜 Table of contents](#-table-of-contents)
 - [✨ Demo](#-demo)
+- [🔧 Using](#-using)
+- [🧪 Requirements for install](#-requirements-for-install)
 - [⚡ Installing](#-installing)
 - [🔨 Compiling](#-compiling)
 - [📚 Contributing](#-contributing)
@@ -30,6 +32,29 @@
 `Ponyfetch` provides an aesthetically pleasing, colorful display of important system information, complete with charming ponies.
 
 <img src="https://i.postimg.cc/MK6Fy3tP/konecne.gif" style="height: 300px; width: 570px;" alt="demo">
+
+## 🔧 Using 
+
+```bash
+ponyfetch [OPTION]
+```
+
+| Option | Description                                              | Type   | Default | Required? |
+|--------|----------------------------------------------------------|--------|---------|-----------|
+| `-c` or `--color`   | Defines what color to print pony and titles in | `String` | `blue` | No        |
+| `-p` or `--pony`   | Pony to print | `String` | `rainbowdash` | No        |
+| `-h` or `--help`   | Help menu in case you don't understand this one |  |  | No        |
+
+## 🧪 Requirements for install
+
+On Linux (MAC not tested), install net-tools package using
+```sh
+sudo apt-get install net-tools
+```
+or
+```sh
+sudo pacman -S net-tools
+```
 
 
 ## ⚡ Installing
@@ -52,8 +77,8 @@ chmod +x ./install.sh && sudo ./install.sh
 
 - 🖥️ On Windows
 
-```txt
-(WIP) Ponyfetch is still not available on Windows
+```sh
+./install.bat
 ```
 
 - 🍎 On Mac
