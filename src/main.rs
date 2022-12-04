@@ -109,7 +109,6 @@ const ACTIONS: [Action; 13] = [
 
 fn main() {
     let args = Arguments::parse();
-    println!("{:?}", args);
 
     let line_count = helpers::file::get_file_linecount(
         &format!("{}{}.txt", helpers::paths::get_pony_path(), &args.pony)
