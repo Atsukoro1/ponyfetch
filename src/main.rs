@@ -1,9 +1,7 @@
-use clap::Parser;
-use args::Args;
+use helpers::arguments::Arguments;
 
 mod helpers;
 mod system;
-mod args;
 
 #[derive(Clone, Copy, Debug)]
 pub enum ActionType {
@@ -110,7 +108,8 @@ const ACTIONS: [Action; 13] = [
 ];
 
 fn main() {
-    let args: Args = Args::parse();
+    let args = Arguments::parse();
+    println!("{:?}", args);
 
     let line_count = helpers::file::get_file_linecount(
         &format!("{}{}.txt", helpers::paths::get_pony_path(), &args.pony)

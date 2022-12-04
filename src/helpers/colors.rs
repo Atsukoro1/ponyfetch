@@ -1,4 +1,4 @@
-const COLORS : [(&str, &str); 34] = [
+pub const COLORS : [(&str, &str); 34] = [
     ("black", "\u{001b}[30m"),
     ("red", "\u{001b}[31m"),
     ("green", "\u{001b}[32m"),
