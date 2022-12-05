@@ -4,6 +4,7 @@ use crate::helpers::colors::COLORS;
 pub struct Arguments {
     pub help: bool,
     pub color: String,
+    pub list: bool,
     pub pony: String   
 }
 
@@ -38,9 +39,21 @@ impl Arguments {
         println!("
             -h, --help      Display this help and exit
             -c, --color     Set the color of the pony
+            -l, --list      List all available ponies
             -p, --pony      Set the pony to display
         ");
         
+        std::process::exit(0);
+    }
+
+    fn print_ponies() {
+        let ponies = crate::helpers::paths::get_ponies();
+
+        println!("Available ponies:");
+        for pony in ponies.iter() {
+            println!("    {}", pony);
+        }
+
         std::process::exit(0);
     }
 
@@ -64,6 +77,7 @@ impl Arguments {
     pub fn parse() -> Arguments {
         let mut args = Arguments {
             help: false,
+            list: false,
             color: String::from(""),
             pony: String::from("")
         };
@@ -85,6 +99,8 @@ impl Arguments {
                         Self::get_args(arg)
                     );
                 },
+
+                arg if arg == "--list" || arg == "-l" => args.list = true,
                 _ => ()
             }
         });
@@ -99,6 +115,10 @@ impl Arguments {
 
         if args.help {
             Self::print_help();
+        }
+
+        if args.list {
+            Self::print_ponies();
         }
 
         args
