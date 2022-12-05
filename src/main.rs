@@ -46,7 +46,7 @@ const ACTIONS: [Action; 13] = [
     Action {
         action_type: ActionType::Details,
         name: Some("Kernel"),
-        func: Some(system::host::get_distro),
+        func: Some(system::host::get_kernel),
     },
     Action {
         action_type: ActionType::Details,

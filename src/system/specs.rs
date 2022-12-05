@@ -1,6 +1,7 @@
 #[cfg(target_os = "linux")]
 use {
     crate::helpers::file::file_open,
+    std::process::Command,
     std::fs::File,
     std::io::Read,
     std::rc::Rc,
@@ -121,23 +122,15 @@ pub fn get_disk_usage() -> String {
 
 #[cfg(target_os = "linux")]
 pub fn get_arch() -> String {
-    use std::process::Command;
-
-    let mut arch = String::new();
-
-    let command = Command::new("lscpu")
+    Command::new("uname")
+        .arg("-m")
         .output()
-        .expect("Failed to execute process");
-
-    let command = String::from_utf8_lossy(&command.stdout);
-
-    for line in command.lines() {
-        if line.contains("Architecture") {
-            arch = line.split_whitespace().last().unwrap().to_string();
-        }
-    }
-
-    arch
+        .expect("Failed to execute process")
+        .stdout
+        .iter()
+        .map(|&c| c as char)
+        .collect::<String>()
+        .trim().to_string()
 }
 
 #[cfg(target_os = "windows")]

@@ -7,7 +7,7 @@ pub struct Pony {
 pub fn get_pony(name: String) -> Option<Pony> {
     let ponies: HashMap<&str, Vec<u8>> = HashMap::from([
         ("applejack_hat_large", include_bytes!("../../ponies/applejack_hat_large.txt").to_vec()),
-        ("applejack_hat_large", include_bytes!("../../ponies/applejack_large.txt").to_vec()),
+        ("applejack_large", include_bytes!("../../ponies/applejack_large.txt").to_vec()),
         ("celestia_large", include_bytes!("../../ponies/celestia_large.txt").to_vec()),
         ("fluttershy_large", include_bytes!("../../ponies/fluttershy_large.txt").to_vec()),
         ("fluttershy", include_bytes!("../../ponies/fluttershy.txt").to_vec()),

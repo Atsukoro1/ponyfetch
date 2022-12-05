@@ -131,6 +131,29 @@ pub fn get_hostname() -> String {
         .to_string()
 }
 
+pub fn get_kernel() -> String {
+    let mut kernel = String::new();
+
+    #[cfg(target_os = "windows")]
+    let output = Command::new("ver")
+        .output()
+        .expect("Failed to execute process");
+
+    #[cfg(target_os = "linux")]
+    let output = Command::new("uname")
+        .args(&["-r"])
+        .output()
+        .expect("Failed to execute process");
+
+    let output = String::from_utf8_lossy(&output.stdout);
+
+    for line in output.lines() {
+        kernel = line.to_string();
+    }
+
+    kernel
+}
+
 #[cfg(target_os = "linux")]
 pub fn get_user() -> String {
     Command::new("whoami")
