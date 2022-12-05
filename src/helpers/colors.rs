@@ -1,3 +1,4 @@
+// #[cfg(any(target_os = "linux", target_os = "macos"))]
 pub const COLORS : [(&str, &str); 34] = [
     ("black", "\u{001b}[30m"),
     ("red", "\u{001b}[31m"),
@@ -36,10 +37,15 @@ pub const COLORS : [(&str, &str); 34] = [
 ];
 
 pub fn print(text: &str, inline: bool, color: &str) {
-    let color = color;
+    let color = COLORS.iter().find(
+        |(name, _)| name == &color
+    ).unwrap().1;
 
-    let color = color;
-    let color = COLORS.iter().find(|(name, _)| name == &color).unwrap().1;
+    #[cfg(windows)]
+    {
+        use ansi_term::enable_ansi_support;
+        enable_ansi_support().unwrap();
+    }
 
     if inline {
         print!("{}{}", color, text);
