@@ -1,4 +1,5 @@
-// #[cfg(any(target_os = "linux", target_os = "macos"))]
+use crate::helpers::console::enable_ansi_support;
+
 pub const COLORS : [(&str, &str); 34] = [
     ("black", "\u{001b}[30m"),
     ("red", "\u{001b}[31m"),
@@ -42,10 +43,7 @@ pub fn print(text: &str, inline: bool, color: &str) {
     ).unwrap().1;
 
     #[cfg(windows)]
-    {
-        use ansi_term::enable_ansi_support;
-        enable_ansi_support().unwrap();
-    }
+    enable_ansi_support();
 
     if inline {
         print!("{}{}", color, text);
