@@ -61,7 +61,31 @@ sudo pacman -S net-tools
 
 If you don't want to compile this tool by yourself, it's possible to just download current build [right here](https://github.com/Atsukoro1/ponyfetch/releases).
 
-After downloading the executable/binary files from releases, please download the "install.sh" file (for Linux/Mac) or "install.bat" file (for Windows) and proceed with the script part in the "Compiling" section.
+If you're installing the binary yourself, the install script is useless for you since the directory paths are completely different,
+so I'll provide the steps here.
+
+- 🐧 On Linux
+
+1. First, create ponyfetch directory like this:
+```sh
+mkdir /usr/share/ponyfetch && mkdir /usr/share/ponyfetch/ponies
+```
+1. Download the ponies from this Github repo amd move them to the ponies directory.
+2. Move the binary to /usr/bin and /bin
+
+- 🖥️ On Windows
+ 
+1. Create ponyfetch directories like this:
+```sh
+md C:\Program Files\Ponyfetch
+md C:\Program Files\Ponyfetch\ponies\
+```
+2. Download the ponies from this Github repo and move them to the ponies directory.
+3. Move the executable to "C:\\Program Files\\Ponyfetch"
+4. Add the directory mentioned in previous step to the path like this:
+```sh
+setx /M path "%path%;C:\Program Files\Ponyfetch"
+```
 
 ## 🔨 Compiling
 
