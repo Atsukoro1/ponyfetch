@@ -1,6 +1,5 @@
-use std::collections::HashMap;
-
-use helpers::{arguments::Arguments, ponies::get_pony};
+use helpers::arguments::Arguments;
+use helpers::ponies::get_pony;
 
 mod helpers;
 mod system;
@@ -143,7 +142,7 @@ fn main() {
                     args.color.as_str()
                 );
             },
-                    
+              
             ActionType::Details => {
                 helpers::print::print_detail(
                     ACTIONS[pad_i as usize].name.unwrap(),

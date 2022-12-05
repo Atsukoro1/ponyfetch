@@ -175,23 +175,6 @@ pub fn get_distro() -> String {
 }
 
 #[cfg(target_os = "linux")]
-pub fn get_uptime() -> String {
-    let temp_buf: String = file_open("/proc/uptime");
-
-    let uptime: u128 = temp_buf.split(".")
-        .collect::<Vec<&str>>()[0]
-        .parse()
-        .unwrap();
-
-    let days = uptime / 86400;
-    let hours = (uptime % 86400) / 3600;
-    let minutes = (uptime % 3600) / 60;
-    let seconds = uptime % 60;
-
-    format!("{}d {}h {}m {}s", days, hours, minutes, seconds)
-}
-
-#[cfg(target_os = "linux")]
 pub fn get_shell() -> String {
     let temp_buf: String = file_open("/etc/passwd");
     let mut final_str = String::new();

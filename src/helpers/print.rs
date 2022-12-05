@@ -1,4 +1,4 @@
-use super::{file::file_open, colors::print};
+use super::colors::print;
 use crate::{helpers::{self}, ActionType};
 
 pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) {

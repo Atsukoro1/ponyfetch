@@ -1,5 +1,4 @@
 use std::collections::HashMap;
-
 pub struct Pony {
     pub text: String,
     pub lines: u16
