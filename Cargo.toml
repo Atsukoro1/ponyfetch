@@ -3,7 +3,6 @@ name = "ponyfetch"
 description="A cross-platform command-line interface (CLI) tool written in Rust to display system information in an aesthetically pleasing and entertaining manner. "
 version = "0.1.0"
 authors=["Atsukoro1"]
-license="GNU GENERAL PUBLIC LICENSE 2.0"
 categories=["command-line-utilities"]
 edition = "2021"
 include = [
