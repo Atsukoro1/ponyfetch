@@ -1,5 +1,3 @@
-use crate::helpers::console::enable_ansi_support;
-
 pub const COLORS : [(&str, &str); 34] = [
     ("black", "\u{001b}[30m"),
     ("red", "\u{001b}[31m"),
@@ -36,6 +34,35 @@ pub const COLORS : [(&str, &str); 34] = [
     ("bright_magenta_bold", "\u{001b}[95m\u{001b}[1m"),
     ("bright_white_bold", "\u{001b}[97m\u{001b}[1m"),
 ];
+
+#[cfg(target_os = "windows")]
+fn enable_ansi_support() {
+    {
+        use std::os::windows::prelude::AsRawHandle;
+
+        const ENABLE_V_TERM_PROCESSING: u32 = 0x0004;
+
+        let stdout = std::io::stdout();
+        let handle = stdout.lock();
+
+        let mut mode = 0;
+
+        unsafe {
+            let handle = handle.as_raw_handle();
+            let result = kernel32::GetConsoleMode(handle, &mut mode);
+            if result == 0 {
+                return;
+            }
+
+            mode |= ENABLE_V_TERM_PROCESSING;
+
+            let result = kernel32::SetConsoleMode(handle, mode);
+            if result == 0 {
+                return;
+            }
+        }
+    }
+}
 
 pub fn print(text: &str, inline: bool, color: &str) {
     let color = COLORS.iter().find(

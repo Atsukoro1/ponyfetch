@@ -4,4 +4,3 @@ pub mod colors;
 pub mod print;
 pub mod paths;
 pub mod ponies;
-pub mod console;
