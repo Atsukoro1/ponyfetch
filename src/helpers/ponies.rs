@@ -10,14 +10,18 @@ pub fn get_pony(name: String) -> Option<Pony> {
         ("applejack_large", include_bytes!("../../ponies/applejack_large.txt").to_vec()),
         ("celestia_large", include_bytes!("../../ponies/celestia_large.txt").to_vec()),
         ("fluttershy_large", include_bytes!("../../ponies/fluttershy_large.txt").to_vec()),
+        #[cfg(target_os = "linux")]
         ("fluttershy", include_bytes!("../../ponies/fluttershy.txt").to_vec()),
         ("luna_large", include_bytes!("../../ponies/luna_large.txt").to_vec()),
         ("mcintosh_large", include_bytes!("../../ponies/mcintosh_large.txt").to_vec()),
         ("pinkiepie_large", include_bytes!("../../ponies/pinkiepie_large.txt").to_vec()),
         ("rainbowdash_large", include_bytes!("../../ponies/rainbowdash_large.txt").to_vec()),
+        #[cfg(target_os = "linux")]
         ("rainbowdash", include_bytes!("../../ponies/rainbowdash.txt").to_vec()),
+        #[cfg(target_os = "linux")]
         ("rarity", include_bytes!("../../ponies/rarity.txt").to_vec()),
         ("twilight_large", include_bytes!("../../ponies/twilight_large.txt").to_vec()),
+        #[cfg(target_os = "linux")]
         ("twilight", include_bytes!("../../ponies/twilight.txt").to_vec()),
     ]);
 

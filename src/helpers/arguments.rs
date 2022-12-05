@@ -94,7 +94,7 @@ impl Arguments {
         }
 
         if args.pony == "" {
-            args.pony = String::from("rainbowdash");
+            args.pony = String::from("rainbowdash_large");
         }
 
         if args.help {

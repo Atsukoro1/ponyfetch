@@ -1,5 +1,8 @@
 use super::colors::print;
-use crate::{helpers::{self}, ActionType};
+use crate::{
+    helpers::{self}, 
+    ActionType
+};
 
 pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) {
     print!("    ");
@@ -47,5 +50,12 @@ pub fn print_ponyline(line: u16, pony: &str, color: &str) {
     let mut lines = pony.split("\n");
     let line = lines.nth(line as usize).unwrap().to_string();
 
-    print(&line, true, color);
+    print(
+        &format!("{:?}", line)
+            .replace("\"", "")
+            .replace("\\r", "")
+        , 
+        true, 
+        color
+    );
 }

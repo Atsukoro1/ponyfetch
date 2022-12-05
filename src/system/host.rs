@@ -131,15 +131,10 @@ pub fn get_hostname() -> String {
         .to_string()
 }
 
+#[cfg(target_os = "linux")]
 pub fn get_kernel() -> String {
     let mut kernel = String::new();
 
-    #[cfg(target_os = "windows")]
-    let output = Command::new("ver")
-        .output()
-        .expect("Failed to execute process");
-
-    #[cfg(target_os = "linux")]
     let output = Command::new("uname")
         .args(&["-r"])
         .output()
