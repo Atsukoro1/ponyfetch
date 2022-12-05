@@ -120,10 +120,15 @@ pub fn get_resolution() -> String {
 
 #[cfg(target_os = "linux")]
 pub fn get_hostname() -> String {
-    let mut hostname = file_open("/etc/hostname");
-    hostname.pop();
-
-    hostname
+    Command::new("hostname")
+        .output()
+        .expect("Failed to execute process")
+        .stdout
+        .iter()
+        .map(|&c| c as char)
+        .collect::<String>()
+        .trim()
+        .to_string()
 }
 
 #[cfg(target_os = "linux")]
