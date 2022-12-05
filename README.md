@@ -20,7 +20,8 @@
 - [🔧 Using](#-using)
 - [🧪 Requirements for install](#-requirements-for-install)
 - [⚡ Installing](#-installing)
-- [🔨 Compiling](#-compiling)
+  - [📦 with Cargo](#-with-cargo)
+  - [📦 Manually](#-manually)
 - [📚 Contributing](#-contributing)
     - [🐎 Adding new ponies](#-adding-new-ponies)
     - [🖥️ Modifying \& Adding code](#️-modifying--adding-code)
@@ -59,57 +60,15 @@ sudo pacman -S net-tools
 
 ## ⚡ Installing
 
-If you don't want to compile this tool by yourself, it's possible to just download current build [right here](https://github.com/Atsukoro1/ponyfetch/releases).
+There are multiple possible ways to install Ponyfetch, however, there is still a way to compile it yourself. If you want, please proceed with reading Compiling section.
 
-If you're installing the binary yourself, the install script is useless for you since the directory paths are completely different,
-so I'll provide the steps here.
-
-- 🐧 On Linux
-
-1. First, create ponyfetch directory like this:
+### 📦 with Cargo
 ```sh
-mkdir /usr/share/ponyfetch && mkdir /usr/share/ponyfetch/ponies
-```
-1. Download the ponies from this Github repo amd move them to the ponies directory.
-2. Move the binary to /usr/bin and /bin
-
-- 🖥️ On Windows
- 
-1. Create ponyfetch directories like this:
-```sh
-md C:\Program Files\Ponyfetch
-md C:\Program Files\Ponyfetch\ponies\
-```
-2. Download the ponies from this Github repo and move them to the ponies directory.
-3. Move the executable to "C:\\Program Files\\Ponyfetch"
-4. Add the directory mentioned in previous step to the path like this:
-```sh
-setx /M path "%path%;C:\Program Files\Ponyfetch"
+cargo install ponyfetch
 ```
 
-## 🔨 Compiling
-
-Make sure you have [rust compiler and build tools](https://www.rust-lang.org/tools/install) installed.
-
-I've made it easy for you, just cd into project folder and run this shell script.
-
-- 🐧 On Linux
-
-```sh
-chmod +x ./install.sh && sudo ./install.sh
-```
-
-- 🖥️ On Windows
-
-```sh
-./install.bat
-```
-
-- 🍎 On Mac
-
-```txt
-(WIP) Ponyfetch was never tested on Mac and it's stability can't be guaranteed.
-```
+### 📦 Manually
+To install the latest version of PonyFetch, first visit the available release [here](https://github.com/Atsukoro1/ponyfetch/releases) and download the executable. For Linux, move the binary to the /usr/bin directory. For Windows, move the binary to any desired path and add it to your system's PATH environment variable.
 
 ## 📚 Contributing
 
