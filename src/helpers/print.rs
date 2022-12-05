@@ -33,7 +33,6 @@ pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) 
         },
 
         ActionType::Colors => {
-            // Print the color blocks like neofetch
             print("████", true, "black");
             print("████", true, "red");
             print("████", true, "green");
@@ -45,11 +44,8 @@ pub fn print_detail(title: &str, value: String, atype: ActionType, color: &str) 
 }
 
 pub fn print_ponyline(line: u16, pony: &str, color: &str) {
-    file_open(&format!("{}{}.txt", helpers::paths::get_pony_path(), pony).to_string())
-        .lines()
-        .skip(line as usize)
-        .take(1)
-        .for_each(|line| {
-            print(line, true, color);
-        });
+    let mut lines = pony.split("\n");
+    let line = lines.nth(line as usize).unwrap().to_string();
+
+    print(&line, true, color);
 }

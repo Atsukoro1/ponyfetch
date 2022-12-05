@@ -1,4 +1,6 @@
-use helpers::arguments::Arguments;
+use std::collections::HashMap;
+
+use helpers::{arguments::Arguments, ponies::get_pony};
 
 mod helpers;
 mod system;
@@ -109,15 +111,12 @@ const ACTIONS: [Action; 13] = [
 
 fn main() {
     let args = Arguments::parse();
+    let pony = get_pony(args.pony).unwrap();
 
-    let line_count = helpers::file::get_file_linecount(
-        &format!("{}{}.txt", helpers::paths::get_pony_path(), &args.pony)
-    );
+    let to_skip = ((pony.lines / 2) as f32).floor() - 6.0;
 
-    let to_skip = ((line_count / 2) as f32).floor() - 6.0;
-
-    for i in 0..line_count {
-        helpers::print::print_ponyline(i, &args.pony, &args.color);
+    for i in 0..pony.lines {
+        helpers::print::print_ponyline(i, &pony.text, &args.color);
 
         let pad_i = (i as f32 - to_skip).floor();
 
