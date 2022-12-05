@@ -6,3 +6,7 @@ authors=["Atsukoro1"]
 license="GNU GENERAL PUBLIC LICENSE 2.0"
 categories=["command-line-utilities"]
 edition = "2021"
+include = [
+    "**/*.rs",
+    "Cargo.toml",
+]
