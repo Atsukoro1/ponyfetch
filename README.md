@@ -36,8 +36,9 @@
 
 ## 🔧 Using 
 
+Example:
 ```bash
-ponyfetch [OPTION]
+ponyfetch -c=blue -p=rainbowdash_large
 ```
 
 | Option | Description                                              | Type   | Default | Required? |

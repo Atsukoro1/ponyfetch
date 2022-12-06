@@ -38,9 +38,9 @@ impl Arguments {
         println!("Prints a pony with system information.");
         println!("
             -h, --help      Display this help and exit
-            -c, --color     Set the color of the pony
-            -l, --list      List all available ponies
-            -p, --pony      Set the pony to display
+            -c=<color>, --color=<color>     Set the color of the pony
+            -l=<color>, --list=<color>      List all available ponies
+            -p=<color>, --pony=<color>      Set the pony to display
         ");
         
         std::process::exit(0);
