@@ -110,7 +110,7 @@ impl Arguments {
         }
 
         if args.pony == "" {
-            args.pony = String::from("rainbowdash_large");
+            args.pony = String::from("derpy_large");
         }
 
         if args.help {
